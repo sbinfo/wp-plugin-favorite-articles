@@ -1,0 +1,16 @@
+p.sbg-favorites-link {
+    margin: 0 !important;
+    border: none;
+}
+
+.sbg-favorites-link a{
+    border: none;
+    color: #00BCD4;
+    text-decoration: none !important;
+    font-size: 15px;
+}
+
+.sbg-favorites-link a:visited,
+.sbg-favorites-link a:hover {
+    color: #607d8b;
+}
