@@ -1,6 +1,8 @@
 p.sbg-favorites-link {
     margin: 0 !important;
     border: none;
+    display: flex;
+    align-items: center;
 }
 
 .sbg-favorites-link a{
@@ -13,4 +15,13 @@ p.sbg-favorites-link {
 .sbg-favorites-link a:visited,
 .sbg-favorites-link a:hover {
     color: #607d8b;
+}
+
+img.sbg-favorites-loading {
+	width: 25px;
+	margin-right: 8px;
+}
+
+img.sbg-favorites-hidden {
+	display: none;
 }
