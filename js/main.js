@@ -5,8 +5,9 @@ jQuery(document).ready(function($) {
             type: 'POST',
             url: sbgFavorites.url,
             data: {
-                test: 'test query',
-                action: 'sbg_test'
+                security: sbgFavorites.nonce,
+                action: 'sbg_test',
+                postId: sbgFavorites.postId
             },
             beforeSend: function() {
                 $('.sbg-favorites-link a').fadeOut(300, function() {
