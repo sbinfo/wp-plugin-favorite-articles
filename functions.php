@@ -7,10 +7,10 @@ function sbg_favorites_content($content) {
 
 		global $post;
 		if(sbg_is_favorites($post->ID)) {
-			return '<p class="sbg-favorites-link"><a href="#" style="color: orange">Удалить из избранного</a></p>' . $content;	
+			return '<p class="sbg-favorites-link"><img src="' . $loader_src . '" class="sbg-favorites-loading sbg-favorites-hidden" alt=""><a href="#" data-action="del" style="color: orange">Удалить из избранного</a></p>' . $content;	
 		}
 
-		return '<p class="sbg-favorites-link"><img src="' . $loader_src . '" class="sbg-favorites-loading sbg-favorites-hidden" alt=""><a href="#">Добавить в Избранное</a></p>' . $content;
+		return '<p class="sbg-favorites-link"><img src="' . $loader_src . '" class="sbg-favorites-loading sbg-favorites-hidden" alt=""><a href="#" data-action="add">Добавить в Избранное</a></p>' . $content;
 	}
 	return $content;
 }
@@ -26,7 +26,7 @@ function sbg_favorites_scripts() {
 	}
 }
 
-function wp_ajax_sbg_test() {
+function wp_ajax_sbg_change() {
 	if ( !wp_verify_nonce( $_POST['security'], 'sbg-favorites' ) ) {
 		wp_die('Security Error');
 	}
@@ -34,14 +34,26 @@ function wp_ajax_sbg_test() {
 	$post_id = (int)$_POST['postId'];
 	$user = wp_get_current_user();
 
-	if(sbg_is_favorites($post_id)) wp_die('уже добавлен');
-	
-	if(add_user_meta($user->id, 'sbg-favorites', $post_id)) {
-		wp_die('Добавлено');
+	if($_POST['method'] == 'add') {
+		if(sbg_is_favorites($post_id)) wp_die();
+
+		if(add_user_meta($user->id, 'sbg-favorites', $post_id)) {
+			wp_die('Добавлено');
+		}
+		wp_die( "Ощибка завершен");
 	}
 
-	wp_die( "Ощибка завершен");
+	if($_POST['method'] == 'del') {
+		if(!sbg_is_favorites($post_id)) wp_die();
+
+		if(delete_user_meta($user->id, 'sbg-favorites', $post_id)) {
+			wp_die('Удалено');
+		}
+		wp_die( "Ощибка Удаление");
+	}
+	
 }
+
 
 function sbg_is_favorites($post_id) {
 	$user = wp_get_current_user();

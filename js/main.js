@@ -1,13 +1,16 @@
 jQuery(document).ready(function($) {
 
     $('.sbg-favorites-link a').click(function(e) {
+        let action = $(this).data('action');
+
         $.ajax({
             type: 'POST',
             url: sbgFavorites.url,
             data: {
                 security: sbgFavorites.nonce,
-                action: 'sbg_test',
-                postId: sbgFavorites.postId
+                action: 'sbg_change',
+                postId: sbgFavorites.postId,
+                method: action
             },
             beforeSend: function() {
                 $('.sbg-favorites-link a').fadeOut(300, function() {

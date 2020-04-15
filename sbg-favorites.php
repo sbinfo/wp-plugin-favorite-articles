@@ -11,5 +11,5 @@ require __DIR__ . '/functions.php';
 
 add_filter('the_content', 'sbg_favorites_content');
 add_action('wp_enqueue_scripts', 'sbg_favorites_scripts');
-add_action('wp_ajax_sbg_test', 'wp_ajax_sbg_test');
+add_action('wp_ajax_sbg_change', 'wp_ajax_sbg_change');
 
