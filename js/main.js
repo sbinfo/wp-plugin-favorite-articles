@@ -17,7 +17,7 @@ jQuery(document).ready(function($) {
             success: function(res) {
                 console.log(res);
                 $('.sbg-favorites-loading').fadeOut(300, function() {
-                    $('.sbg-favorites-link').html("Статья добавлено в избранное");
+                    $('.sbg-favorites-link').html(res);
                     $('.sbg-favorites-link').css({"fontSize": "15px", "color": "#FF9800"});
                 });
             },
