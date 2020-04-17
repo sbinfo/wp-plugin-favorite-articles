@@ -48,7 +48,6 @@ function wp_ajax_sbg_delete_in_dashboard() {
 	if ( !wp_verify_nonce( $_POST['admin_security'], 'sbg-admin-favorites' ) ) {
 		wp_die('Security Error');
 	}
-
 	$user = wp_get_current_user();
 
 	if($_POST['method'] == 'delete') {
@@ -61,11 +60,11 @@ function wp_ajax_sbg_delete_in_dashboard() {
 		wp_die("Ощибка удалении");
 	}
 
-	if($_POST['method'] == 'delete-all') {
+	if($_POST['is_delete_al'] === 'delete') {
 		if(delete_user_meta($user->ID, 'sbg-favorites')) {
 			wp_die("Все записи удалены");
 		}
-		wp_die("all");
+		wp_die('Ощибка удалении');
 	}
 	
 }
