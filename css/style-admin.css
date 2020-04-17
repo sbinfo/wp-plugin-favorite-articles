@@ -19,3 +19,15 @@
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
 }
+
+span.delete-item-btn {
+    position: absolute;
+    right: 15px;
+}
+
+.delete-item-btn i.fas {
+    color: #F44336;
+    font-size: 17px;
+    cursor: pointer;
+}
+
