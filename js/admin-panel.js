@@ -10,8 +10,14 @@ jQuery(document).ready(function($) {
                 action: 'sbg_delete_in_dashboard',
                 postId: elemId,
             },
+            beforeSend: function() {
+                $('.sbg-dashboard-favorites-item-' + elemId + ' .hide').fadeOut(300, function() {
+                    $('.sbg-favorites-loading-' + elemId).fadeIn();
+                });
+            },
             success: function(res) {
-                console.log('succes: ', res);
+                $('.sbg-favorites-loading-' + elemId).fadeOut(300, function() {
+                });
             },
             error: function() {
                 console.log('Ajax Error')

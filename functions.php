@@ -20,6 +20,7 @@ function sbg_favorites_dashboard_widget() {
 function sbg_show_dashboard_widget() {
 	$user = wp_get_current_user();
 	$favorites = get_user_meta($user->ID, 'sbg-favorites');
+	$loader_src = plugins_url('img/loading.gif', __FILE__);
 
 	if(!$favorites) {
 		echo 'Список пуст';
@@ -34,7 +35,7 @@ function sbg_show_dashboard_widget() {
 		if(!$post_image) {
 			$post_image = '<img src="'. plugins_url('/img/no-image.png', __FILE__) .'" alt="">';
 		}
-		echo '<li class="sbg-dashboard-favorites-item"><a href="'. get_permalink($item) .'">'. $post_image .'</a><a href="'. get_permalink($item) .'">'. get_the_title($item) .'</a><span class="delete-item-btn" data-id="'. $item .'"><i class="fas fa-trash-alt"></i></span></li>';
+		echo '<li class="sbg-dashboard-favorites sbg-dashboard-favorites-item-'. $item .'"><a href="#"><img src="' . $loader_src . '" class="sbg-favorites-loading-'. $item .' sbg-favorites-hidden" alt=""></a><a class="hide" href="'. get_permalink($item) .'">'. $post_image .'</a><a class="hide" href="'. get_permalink($item) .'">'. get_the_title($item) .'</a><span class="hide delete-item-btn" data-id="'. $item .'"><i class="fas fa-trash-alt"></i></span></li>';
 	}
 	echo '</ul>';
 }
@@ -57,14 +58,6 @@ function wp_ajax_sbg_delete_in_dashboard() {
 }
 
 
-// if($_POST['method'] == 'del') {
-// 	if(!sbg_is_favorites($post_id)) wp_die();
-	
-// 	if(delete_user_meta($user->id, 'sbg-favorites', $post_id)) {
-// 		wp_die('Удалено');
-// 	}
-// 	wp_die( "Ощибка Удаление");
-// }
 /*======================================= код для админки ====================================*/
 /*============================================================================================*/
 

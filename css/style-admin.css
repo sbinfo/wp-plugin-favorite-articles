@@ -1,15 +1,15 @@
 
-.sbg-dashboard-favorites-item {
+.sbg-dashboard-favorites {
     display: flex;
     align-items: center;
 }
 
-.sbg-dashboard-favorites-item a {
+.sbg-dashboard-favorites a {
     margin-left: 10px;
     font-size: 16px;
 }
 
-.sbg-dashboard-favorites-item img {
+.sbg-dashboard-favorites img {
     width: 35px;
     height: 35px;
     border: 1px solid #c5c5c5;
@@ -18,6 +18,13 @@
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
+}
+
+.sbg-dashboard-favorites img.sbg-favorites-hidden {
+    border: none;
+    width: 40px;
+    height: 40px;
+    margin-left: 5px;
 }
 
 span.delete-item-btn {
@@ -29,5 +36,9 @@ span.delete-item-btn {
     color: #F44336;
     font-size: 17px;
     cursor: pointer;
+}
+
+img.sbg-favorites-hidden {
+	display: none;
 }
 
