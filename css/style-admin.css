@@ -42,3 +42,16 @@ img.sbg-favorites-hidden {
 	display: none;
 }
 
+.sbg-delete-all-favorites-block {
+    text-align: center;
+    padding-top: 14px;
+    border-top: 1px solid #80808059;
+    margin-top: 24px;
+}
+
+li.sbg-dashboard-favorites-loader {
+    text-align: center;
+}
+li.sbg-dashboard-favorites-loader img.sbg-favorites-hidden {
+    width: 70px;
+}

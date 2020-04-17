@@ -17,6 +17,7 @@ function sbg_favorites_dashboard_widget() {
 	wp_add_dashboard_widget('sbg_favorites_dashboard', 'Ваш список избранного', 'sbg_show_dashboard_widget');
 }
 
+// Функция рендер
 function sbg_show_dashboard_widget() {
 	$user = wp_get_current_user();
 	$favorites = get_user_meta($user->ID, 'sbg-favorites');
@@ -35,9 +36,11 @@ function sbg_show_dashboard_widget() {
 		if(!$post_image) {
 			$post_image = '<img src="'. plugins_url('/img/no-image.png', __FILE__) .'" alt="">';
 		}
-		echo '<li class="sbg-dashboard-favorites sbg-dashboard-favorites-item-'. $item .'"><a href="#"><img src="' . $loader_src . '" class="sbg-favorites-loading-'. $item .' sbg-favorites-hidden" alt=""></a><a class="hide" href="'. get_permalink($item) .'">'. $post_image .'</a><a class="hide" href="'. get_permalink($item) .'">'. get_the_title($item) .'</a><span class="hide delete-item-btn" data-id="'. $item .'"><i class="fas fa-trash-alt"></i></span></li>';
+		echo '<li class="sbg-dashboard-favorites sbg-dashboard-favorites-item-'. $item .'"><a href="#"><img src="' . $loader_src . '" class="sbg-favorites-loading-'. $item .' sbg-favorites-hidden" alt=""></a><a class="hide" href="'. get_permalink($item) .'">'. $post_image .'</a><a class="hide" href="'. get_permalink($item) .'">'. get_the_title($item) .'</a><span class="hide delete-item-btn" data-id="'. $item .'"><i data-action="delete" class="fas fa-trash-alt"></i></span></li>';
 	}
-	echo '</ul>';
+	echo '<li class="sbg-dashboard-favorites-loader"><img src="' . $loader_src . '" class="sbg-favorites-hidden" alt=""></li></ul>';
+	echo '<div class="sbg-delete-all-favorites-block">
+	<button data-action="delete-all" class="sbg-delete-all-favorites" type="button">Удалить все записи</button></div>';
 }
 
 // Функция удаление записей по одной из админки
@@ -47,14 +50,24 @@ function wp_ajax_sbg_delete_in_dashboard() {
 	}
 
 	$user = wp_get_current_user();
-	$postId = $_POST['postId'];
 
-	if(!sbg_is_favorites($postId)) wp_die();
+	if($_POST['method'] == 'delete') {
+		$postId = $_POST['postId'];
+		if(!sbg_is_favorites($postId)) wp_die();
 
-	if(delete_user_meta($user->ID, 'sbg-favorites', $postId)) {
-		wp_die("Удалено");
+		if(delete_user_meta($user->ID, 'sbg-favorites', $postId)) {
+			wp_die("Удалено");
+		}
+		wp_die("Ощибка удалении");
 	}
-	wp_die("Ощибка удалении");
+
+	if($_POST['method'] == 'delete-all') {
+		if(delete_user_meta($user->ID, 'sbg-favorites')) {
+			wp_die("Все записи удалены");
+		}
+		wp_die("all");
+	}
+	
 }
 
 
