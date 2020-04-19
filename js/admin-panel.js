@@ -12,7 +12,7 @@ jQuery(document).ready(function($) {
 
         $.ajax({
             type: 'POST',
-            url: sbgFavorites.url,
+            url: ajaxurl,
             data: {
                 admin_security: sbgFavorites.nonce,
                 action: 'sbg_delete_in_dashboard',
